@@ -18,7 +18,7 @@ request.onsuccess = function(event) {
 };
 
 request.onerror = function(event) {
-  console.log("Woops! " + event.target.errorCode);
+  console.log("Sorry! " + event.target.errorCode);
 };
 
 function saveRecord(record) {
@@ -63,7 +63,7 @@ function checkDatabase() {
       });
     }
   };
-};
+}
 
 // listen for app coming back online
 window.addEventListener("online", checkDatabase);
