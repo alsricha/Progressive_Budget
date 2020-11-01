@@ -20,14 +20,6 @@ mongoose.connect(
   useFindAndModify: false
 });
 
-
-/* mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://user:password7@ds125841.mlab.com:25841/heroku_dxmk3vsz",
-  {
-    useMongoClient: true
-  }); */
-
-
 // routes
 app.use(require("./routes/api.js"));
 
