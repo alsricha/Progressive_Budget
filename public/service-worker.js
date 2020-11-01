@@ -1,12 +1,12 @@
 const FILES_TO_CACHE = [
     '/',
-    'index.html',
-    'index.js',
-    'db.js',
-    'styles.css',
-    'manifest.webmanifest',
-    'icons/icon-192x192.png',
-    'icons/icon-512x512.png'
+    '/index.html',
+    '/index.js',
+    '/db.js',
+    '/styles.css',
+    '/manifest.webmanifest',
+    '/icons/icon-192x192.png',
+    '/icons/icon-512x512.png'
   ]
   
   const CACHE_NAME = 'static-cache-v2'
@@ -25,7 +25,7 @@ const FILES_TO_CACHE = [
   })
   
   //activate
-  self.addEventListener('activate', evt => {
+  self.addEventListener('activate', function(evt) {
     evt.waitUntil(
       caches.keys().then(keyList => {
         return Promise.all(
@@ -43,7 +43,8 @@ const FILES_TO_CACHE = [
   })
   
   // fetch
-  self.addEventListener('fetch', evt => {
+  self.addEventListener('fetch', function(evt) {
+    // cache successful requests to the API
     if (evt.request.url.includes('/api/')) {
       evt.respondWith(
         caches.open(DATA_CACHE_NAME).then(cache => {
@@ -64,6 +65,11 @@ const FILES_TO_CACHE = [
           .catch(err => console.log(err))
       )
   
-      return
+      return;
     }
-  })
+    evt.respondWith(
+      caches.match(evt.request).then(function(response) {
+        return response || fetch(evt.request);
+      })
+    );
+  });
