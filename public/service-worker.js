@@ -25,7 +25,7 @@ const FILES_TO_CACHE = [
   })
   
   //activate
-  self.addEventListener('activate', function(evt) {
+  self.addEventListener('activate', evt => {
     evt.waitUntil(
       caches.keys().then(keyList => {
         return Promise.all(
@@ -43,8 +43,7 @@ const FILES_TO_CACHE = [
   })
   
   // fetch
-  self.addEventListener('fetch', function(evt) {
-    // cache successful requests to the API
+  self.addEventListener('fetch', evt => {
     if (evt.request.url.includes('/api/')) {
       evt.respondWith(
         caches.open(DATA_CACHE_NAME).then(cache => {
@@ -65,11 +64,6 @@ const FILES_TO_CACHE = [
           .catch(err => console.log(err))
       )
   
-      return;
+      return
     }
-    evt.respondWith(
-      caches.match(evt.request).then(function(response) {
-        return response || fetch(evt.request);
-      })
-    );
-  });
+  })
