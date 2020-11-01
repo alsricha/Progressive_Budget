@@ -14,3 +14,9 @@ request.onsuccess = function (event) {
     }
 };
 
+request.oneerror = function (event) {
+    console.log("Sorry!" + event.target.errorCode);
+};
+
+
+
