@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const compression = require("compression");
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = 4000;
 
 app.use(logger("dev"));
 
@@ -15,12 +15,9 @@ app.use(express.json());
 app.use(express.static("public"));
 
 
-// If deployed on heroku, use the deployed database. Otherwise use the local workout database
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/BudgetTracker';
-mongoose.connect(MONGODB_URI, {
+mongoose.connect("mongodb://localhost/budget", {
   useNewUrlParser: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true,
+  useFindAndModify: false
 });
 
 // routes
